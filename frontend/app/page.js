@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Filters from "../components/Filters";
 import JobCard from "../components/JobCard";
 import { fetchJobs, fetchTopMatches, markApplied, updateStatus } from "../lib/api";
@@ -37,19 +37,20 @@ function Section({ title, items, onMarkApplied, onSetStatus }) {
 
 export default function DashboardPage() {
   const [filters, setFilters] = useState({ role: "", location: "", status: "", applyType: "" });
+  const [appliedFilters, setAppliedFilters] = useState({ role: "", location: "", status: "", applyType: "" });
   const [page, setPage] = useState(1);
   const [jobs, setJobs] = useState([]);
   const [meta, setMeta] = useState({ page: 1, totalPages: 1, total: 0 });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const loadJobs = async () => {
+  const loadJobs = useCallback(async () => {
     setLoading(true);
     setError("");
 
     try {
       const [{ items, meta: responseMeta }, topMatchResp] = await Promise.all([
-        fetchJobs({ ...filters, page, limit: 20 }),
+        fetchJobs({ ...appliedFilters, page, limit: 20 }),
         fetchTopMatches({ limit: 5 }),
       ]);
 
@@ -67,12 +68,11 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [appliedFilters, page]);
 
   useEffect(() => {
     loadJobs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [loadJobs]);
 
   const sections = useMemo(() => sectionizeJobs(jobs), [jobs]);
 
@@ -82,8 +82,8 @@ export default function DashboardPage() {
 
   const applyFilters = async (event) => {
     event.preventDefault();
+    setAppliedFilters(filters);
     setPage(1);
-    await loadJobs();
   };
 
   const handleMarkApplied = async (id) => {
