@@ -13,16 +13,16 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
-    "axios": "^1.8.4",
+    "axios": "^1.15.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "helmet": "^8.1.0",
-    "mongoose": "^8.15.1",
+    "mongoose": "^8.22.1",
     "morgan": "^1.10.0",
     "node-cron": "^4.2.1",
     "openai": "^4.100.0",
-    "playwright": "^1.52.0",
+    "playwright": "^1.55.1",
     "zod": "^3.25.28"
   },
   "devDependencies": {
