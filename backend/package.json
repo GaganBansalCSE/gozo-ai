@@ -1,0 +1,32 @@
+{
+  "name": "gozo-ai-backend",
+  "version": "1.0.0",
+  "description": "Backend API and automation engine for GOZO AI",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "build": "node -e \"console.log('No build step required for backend')\"",
+    "lint": "node -e \"console.log('No lint config found; skipping')\"",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "axios": "^1.15.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.22.1",
+    "morgan": "^1.10.0",
+    "node-cron": "^4.2.1",
+    "openai": "^4.100.0",
+    "playwright": "^1.55.1",
+    "zod": "^3.25.28"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
